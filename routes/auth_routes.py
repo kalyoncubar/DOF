@@ -1,4 +1,3 @@
-# routes/auth_routes.py
 from flask import Blueprint, request, jsonify
 from werkzeug.security import check_password_hash
 from config.db import SessionFactory
@@ -8,8 +7,11 @@ from utils.auth import create_jwt
 
 bp = Blueprint("auth", __name__)
 uow = UnitOfWork(SessionFactory)
-
 def user_repo_factory(s): return UserRepository(s)
+
+@bp.get("/auth/ping")
+def auth_ping():
+    return jsonify({"auth": "ok"})
 
 @bp.post("/auth/login")
 def login():
@@ -27,5 +29,5 @@ def login():
         if not check_password_hash(u["password_hash"], password):
             return jsonify({"error": "invalid_credentials"}), 401
 
-        token = create_jwt(user_id=u["id"], role=u["role"])
+        token = create_jwt(u["id"], u["role"])
         return jsonify({"token": token, "user": {"id": u["id"], "name": u["name"], "role": u["role"]}})

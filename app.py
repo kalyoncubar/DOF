@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, jsonify
 from routes.auth_routes import bp as auth_bp
 from routes.action_routes import bp as action_bp
@@ -20,7 +19,7 @@ def create_app():
                         "try": ["/health", "POST /api/rc", "POST /api/nc"]})
 
     # Blueprints
-    app.register_blueprint(auth_bp, url_prefix="/api")   # <--- EKLENDİ
+    app.register_blueprint(auth_bp, url_prefix="/api")
     app.register_blueprint(action_bp, url_prefix="/api")
     app.register_blueprint(vote_bp, url_prefix="/api")
     app.register_blueprint(discussion_bp, url_prefix="/api")
