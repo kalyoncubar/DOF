@@ -1,0 +1,26 @@
+{
+  "name": "DOF Dev",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {}
+  },
+  "postCreateCommand": "pip install -r requirements.txt || true",
+  "forwardPorts": [5000],
+  "portsAttributes": {
+    "5000": { "label": "Flask", "onAutoForward": "openBrowser" }
+  },
+  "remoteEnv": {
+    "FLASK_ENV": "development",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-azuretools.vscode-docker",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}
