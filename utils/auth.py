@@ -4,6 +4,8 @@ import os, time
 import jwt
 from functools import wraps
 from flask import request, g, jsonify
+from sqlalchemy import select
+
 
 JWT_ALG = "HS256"
 JWT_TTL_SECONDS = 3600  # 1 saat
@@ -41,3 +43,4 @@ def auth_required(f):
         g.user = u
         return f(*args, **kwargs)
     return wrapper
+
