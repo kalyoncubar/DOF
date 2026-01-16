@@ -1,12 +1,6 @@
-# Python/Flask yerel artefaktlar
 __pycache__/
 *.pyc
-*.pyo
-
-# Yerel DB / env
 *.db
 *.sqlite
 .env
-
-# VS Code logları
 .vscode/*.log
