@@ -41,6 +41,10 @@ class NCRepository:
         row = self.s.execute(select(self.table).where(self.table.c.id == nc_id)).first()
         return dict(row._mapping) if row else None
 
+    def list_all(self) -> list[dict]:
+        rows = self.s.execute(select(self.table).order_by(self.table.c.id.desc())).all()
+        return [dict(row._mapping) for row in rows]
+
     def create(self, title: str, opened_by: int, created_at) -> int:
         self.s.execute(insert(self.table).values(
             title=title, status="open", opened_by=opened_by, created_at=created_at
@@ -57,3 +61,6 @@ class NCRepository:
         if reopened_by_admin_id is not None:
             values["reopened_by_admin_id"] = reopened_by_admin_id
         self.s.execute(update(self.table).where(self.table.c.id == nc_id).values(**values))
+
+    def update_title(self, nc_id: int, title: str):
+        self.s.execute(update(self.table).where(self.table.c.id == nc_id).values(title=title))
